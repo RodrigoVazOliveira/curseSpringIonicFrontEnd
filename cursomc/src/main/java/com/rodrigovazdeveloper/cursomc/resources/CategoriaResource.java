@@ -1,6 +1,5 @@
 package com.rodrigovazdeveloper.cursomc.resources;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.RequestMapping;
