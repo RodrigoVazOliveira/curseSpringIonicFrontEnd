@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoriaService } from '../services/domain/categoria.service';
 
 @Component({
   selector: 'app-categorias',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriasPage implements OnInit {
 
-  constructor() { }
+  constructor(public service : CategoriaService) { }
+
+
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
+    this.service.findAll()
+    .subscribe((response) => {
+
+      console.log(response);
+
+    },
+    (error) => {
+       console.log(error);
+    });
+    console.log();
   }
 
 }
