@@ -1,8 +1,11 @@
 package com.rodrigovazdeveloper.cursomc.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -56,6 +59,16 @@ public class Pedido implements Serializable {
 		this.enderecoEntrega = enderecoEntrega;
 	}
 
+	public Double getValorTotal() {
+		
+		Double soma = 0.0;
+		
+		for (ItemPedido ip : itens)
+			soma += ip.getSubTotal();
+		
+		return soma;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -127,6 +140,33 @@ public class Pedido implements Serializable {
 
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
+	}
+
+	@Override
+	public String toString() {
+		
+		NumberFormat mf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY hh:mm");
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pedido número: ");
+		builder.append(getId());
+		builder.append(", Instante: ");
+		builder.append(sdf.format(getInstante()));
+		builder.append(", Cliente: ");
+		builder.append(getCliente().getNome());
+		builder.append(", Situação do pagamento: ");
+		builder.append(getPagamento().getEstado().getDescricacao());
+		builder.append("\nDetalhes:\n");
+	
+		for (ItemPedido ip : itens)
+			builder.append(ip.toString());
+		
+		builder.append("Valor total: ");
+		builder.append(mf.format(getValorTotal()));
+		
+		
+		return builder.toString();
 	}
 	
 	
