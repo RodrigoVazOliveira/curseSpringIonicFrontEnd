@@ -12,7 +12,7 @@ export class HomePage {
 
 
   login() {
-    this.navCtrl.navigateForward('/categorias');
+    this.navCtrl.navigateRoot('/categorias');
   }
 
 }
