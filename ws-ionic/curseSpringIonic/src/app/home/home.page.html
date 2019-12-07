@@ -17,13 +17,13 @@
   <form>
     <ion-item>
         <ion-label stacked>E-Mail: </ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input [(ngModel)]="credenciais.email" name="email" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label stacked>Senha: </ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input [(ngModel)]="credenciais.senha" name="senha" type="password"></ion-input>
   </ion-item>
-    <ion-button type="submit" (click)="login()" expand="full" size="block">Entrar</ion-button>
+    <ion-button type="submit" name="submiter" (click)="login()" expand="full" size="block">Entrar</ion-button>
   </form>
   <ion-button type="submit" expand="full" size="block">Registar </ion-button>
 </ion-content>

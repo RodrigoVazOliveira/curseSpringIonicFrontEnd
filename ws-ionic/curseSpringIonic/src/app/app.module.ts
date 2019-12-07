@@ -10,11 +10,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaService } from './services/domain/categoria.service';
-<<<<<<< HEAD
-import { httpInterceptorProviders } from './interceptors';
-=======
 import { httpInterceptorProviders } from './interceptors/index';
->>>>>>> c65568c5b05b1ca99c59d2ff7ef2aebfdc662856
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +27,7 @@ import { httpInterceptorProviders } from './interceptors/index';
     SplashScreen,
     CategoriaService,
     httpInterceptorProviders,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
