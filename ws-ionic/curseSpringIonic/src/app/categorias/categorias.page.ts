@@ -29,9 +29,7 @@ export class CategoriasPage implements OnInit {
       this.itens = response;
 
     },
-    (error) => {
-       console.log(error);
-    });
+    (error) => {});
 
   }
 
