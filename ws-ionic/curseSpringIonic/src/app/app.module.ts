@@ -13,6 +13,7 @@ import { CategoriaService } from './services/domain/categoria.service';
 import { httpInterceptorProviders } from './interceptors/index';
 import { AuthService } from './services/auth.service';
 import { StorageService } from './services/storage.service';
+import { ClienteService } from './services/domain/cliente.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { StorageService } from './services/storage.service';
     httpInterceptorProviders,
     AuthService,
     StorageService,
+    ClienteService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
