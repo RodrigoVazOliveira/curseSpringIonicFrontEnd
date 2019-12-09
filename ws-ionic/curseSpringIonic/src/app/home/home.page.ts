@@ -37,7 +37,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     
-    this.menu.swipeEnable(false);
+    this.menu.enable(false);
 
   }
 
@@ -54,7 +54,7 @@ export class HomePage {
   }
 
   ionViewDidLeave() {
-     this.menu.swipeEnable(true);
+     this.menu.enable(true);
   }
 
 }

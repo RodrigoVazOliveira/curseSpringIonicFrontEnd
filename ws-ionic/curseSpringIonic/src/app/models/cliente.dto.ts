@@ -1,8 +1,8 @@
 export interface ClienteDTO {
 
-    id: String;
-    nome: String;
-    email: String;
-    imageUrl? : String;
+    id: string;
+    nome: string;
+    email: string;
+    imageUrl? : string;
 
 }
