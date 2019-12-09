@@ -3,6 +3,7 @@ import { StorageService } from '../services/storage.service';
 import { ClienteDTO } from '../models/cliente.dto';
 import { ClienteService } from '../services/domain/cliente.service';
 import { API_CONFIG } from '../config/api.config';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,8 @@ export class ProfilePage implements OnInit {
   cliente: ClienteDTO;
 
   constructor(public storage: StorageService,
-    public clienteService: ClienteService) { }
+    public clienteService: ClienteService,
+    public navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -29,8 +31,13 @@ export class ProfilePage implements OnInit {
           this.cliente = response;
           this.getImageIfExists();
         }, 
-        error => {});
+        error => {
+          if (error.status == 403) 
+            this.navCtrl.navigateRoot('/home');
+        });
       }
+      else
+      this.navCtrl.navigateRoot('/home');
 
   }
 
