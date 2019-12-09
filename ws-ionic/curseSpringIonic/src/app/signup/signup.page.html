@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form (ngSubmit)="signupUser(); $event.preventDefault()">
+      <ion-item>
+        <ion-label>Nome</ion-label>
+        <ion-input type="text" name="nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>E-mail</ion-label>
+        <ion-input type="email" name="email"></ion-input>
+      </ion-item>
+      <ion-radio-group>
+          <ion-list radio-group name="tipo">
+              <ion-list-header>
+                Tipo de cliente
+              </ion-list-header>
+              <ion-item>
+                <ion-label>Pessoa física</ion-label>
+                <ion-radio checked value="1"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Pessoa Jurídica</ion-label>
+                <ion-radio value="2"></ion-radio>
+              </ion-item>
+          </ion-list>
+      </ion-radio-group>
+      <ion-item>
+          <ion-label>CPF ou CNPJ</ion-label>
+          <ion-input type="text" name="cpfOuCpnj"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Senha</ion-label>
+          <ion-input type="password" name="senha"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Lgradouro</ion-label>
+          <ion-input type="text" name="logradouro"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Número:</ion-label>
+          <ion-input type="number" name="numero"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Complemento</ion-label>
+          <ion-input type="text" name="complemento"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Bairro</ion-label>
+          <ion-input type="text" name="bairro"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>CEP</ion-label>
+          <ion-input type="text" name="cep"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Telefone 1:</ion-label>
+          <ion-input type="text" name="telefone1"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Telefone 2</ion-label>
+          <ion-input type="text"  name="telefone2"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Telefone 3</ion-label>
+          <ion-input type="text"  name="telefone2"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>Telefone 4</ion-label>
+          <ion-input type="text"  name="telefone4"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Estado:</ion-label>
+        <ion-select name="estadoId" (ionChange)="updateCidade()">
+            <ion-select-option value="1">Minas Gerais</ion-select-option>
+            <ion-select-option value="2">São Paulo</ion-select-option>
+        </ion-select> 
+      </ion-item>
+      <ion-item>
+          <ion-label>Cidade:</ion-label>
+          <ion-select name="CidadeId">
+              <ion-select-option value="1">Uberlândia</ion-select-option>
+              <ion-select-option value="2">Campinas</ion-select-option>
+          </ion-select> 
+        </ion-item>
+        <ion-button color="primary" expand="full"  type="submit">Cadastrar Contas</ion-button>
+    </form>
+</ion-content>

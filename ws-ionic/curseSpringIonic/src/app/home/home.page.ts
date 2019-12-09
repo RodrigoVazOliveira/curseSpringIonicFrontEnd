@@ -57,4 +57,8 @@ export class HomePage {
      this.menu.enable(true);
   }
 
+  signUp() {
+    this.navCtrl.navigateBack('/signup');
+  }
+
 }

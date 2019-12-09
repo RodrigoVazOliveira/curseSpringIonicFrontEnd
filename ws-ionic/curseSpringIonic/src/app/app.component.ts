@@ -30,7 +30,7 @@ export class AppComponent {
     {
       title: 'Logout',
       name: 'Logout',
-      url: null,
+      url: '',
       icon: 'log-out',
       function: () => {
         
