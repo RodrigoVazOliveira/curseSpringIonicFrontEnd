@@ -36,8 +36,23 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
+    
     this.menu.swipeEnable(false);
-  }1
+
+  }
+
+  ionViewDidEnter() {
+    this.auth.refreshToken().
+    subscribe(
+    result => {
+      this.auth.successfulLogin(result.headers.get('Authorization'));
+      this.navCtrl.navigateRoot('/categorias');
+    },
+    error => {
+      //console.log(error);
+    });
+  }
+
   ionViewDidLeave() {
      this.menu.swipeEnable(true);
   }

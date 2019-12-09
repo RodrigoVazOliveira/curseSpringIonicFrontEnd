@@ -26,4 +26,6 @@ export class ClienteService {
         return this.http.get(url, {responseType : 'blob'});
 
     }
+
+
 }
