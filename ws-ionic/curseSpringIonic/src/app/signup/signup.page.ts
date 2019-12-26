@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CidadeService } from '../services/domain/cidade.service';
+import { EstadoService } from '../services/domain/estado.service';
+import { EstadoDTO } from '../models/estado.dto';
+import { CidadeDTO } from '../models/cidade.dto';
 
 @Component({
   selector: 'app-signup',
@@ -8,9 +12,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class SignupPage implements OnInit {
 
-  formGroup: FormGroup
+  formGroup: FormGroup;
+  estados: EstadoDTO[];
+  cidades: CidadeDTO[];
 
-  constructor(public formBuilder: FormBuilder) {
+  constructor(public formBuilder: FormBuilder, 
+    public cidadeService: CidadeService,
+    public estadoService: EstadoService) {
     this.formGroup = this.formBuilder.group({
       nome: [
         'Joaquim',[
@@ -97,4 +105,29 @@ export class SignupPage implements OnInit {
   signupUser() {
     console.log('Enviou o formulário');
   }
+
+  updateCidades() {
+    let estadoId = this.formGroup.controls.estadoId.value;
+    this.cidadeService.findAll(estadoId)
+    .subscribe(response => {
+      this.cidades = response;
+      this.formGroup.controls.CidadeId.setValue(0);
+    },
+    error => {});
+  }
+
+  ionViewDidEnter() {
+    this.estadoService.findAll()
+    .subscribe(
+      response => {
+        this.estados = response;
+        console.log(this.estados);
+        this.formGroup.controls.estadoId.setValue(this.estados[0].id);
+        this.updateCidades();
+      },
+      error => { }
+    );
+  }
+
+ 
 }
