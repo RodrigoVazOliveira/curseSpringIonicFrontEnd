@@ -10,10 +10,12 @@
         <ion-label>Nome</ion-label>
         <ion-input type="text" formControlName="nome"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['nome'].dirty && formGroup.controls['nome'].errors">Valor incorreto</p>
       <ion-item>
         <ion-label>E-mail</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['email'].dirty && formGroup.controls['email'].errors">Valor incorreto</p>
       <ion-radio-group>
           <ion-list radio-group >
               <ion-list-header>
@@ -33,18 +35,22 @@
           <ion-label>CPF ou CNPJ</ion-label>
           <ion-input type="text" formControlName="cpfOuCpnj"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['cpfOuCpnj'].dirty && formGroup.controls['cpfOuCpnj'].errors">Valor incorreto</p>
       <ion-item>
           <ion-label>Senha</ion-label>
           <ion-input type="password" formControlName="senha"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['senha'].dirty && formGroup.controls['senha'].errors">Valor incorreto</p>
       <ion-item>
           <ion-label>Lgradouro</ion-label>
           <ion-input type="text" formControlName="logradouro"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['logradouro'].dirty && formGroup.controls['logradouro'].errors">Valor incorreto</p>
       <ion-item>
           <ion-label>Número:</ion-label>
           <ion-input type="number" formControlName="numero"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['numero'].dirty && formGroup.controls['numero'].errors">Valor incorreto</p>
       <ion-item>
           <ion-label>Complemento</ion-label>
           <ion-input type="text" formControlName="complemento"></ion-input>
@@ -53,14 +59,17 @@
           <ion-label>Bairro</ion-label>
           <ion-input type="text" formControlName="bairro"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['bairro'].dirty && formGroup.controls['bairro'].errors">Valor incorreto</p>
       <ion-item>
           <ion-label>CEP</ion-label>
           <ion-input type="text" formControlName="cep"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['cep'].dirty && formGroup.controls['cep'].errors">Valor incorreto</p>
       <ion-item>
           <ion-label>Telefone 1:</ion-label>
           <ion-input type="text" formControlName="telefone1"></ion-input>
       </ion-item>
+      <p class="danger" *ngIf="formGroup.controls['telefone1'].dirty && formGroup.controls['telefone1'].errors">Valor incorreto</p>
       <ion-item>
           <ion-label>Telefone 2</ion-label>
           <ion-input type="text"  formControlName="telefone2"></ion-input>
@@ -83,6 +92,6 @@
             <ion-select-option *ngFor="let cidade of cidades;" [value]="cidade.id">{{cidade.nome}}</ion-select-option>
           </ion-select> 
         </ion-item>
-        <ion-button color="primary" expand="full"  type="submit">Cadastrar Contas</ion-button>
+        <ion-button color="primary" expand="full" [disabled]="formGroup.invalid"  type="submit">Cadastrar Contas</ion-button>
     </form>
 </ion-content>
