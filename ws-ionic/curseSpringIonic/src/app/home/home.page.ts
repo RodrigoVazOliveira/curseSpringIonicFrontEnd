@@ -58,7 +58,7 @@ export class HomePage {
   }
 
   signUp() {
-    this.navCtrl.navigateBack('/signup');
+    this.navCtrl.navigateForward('/signup');
   }
 
 }

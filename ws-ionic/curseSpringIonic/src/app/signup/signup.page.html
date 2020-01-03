@@ -16,26 +16,34 @@
         <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
       <p class="danger" *ngIf="formGroup.controls['email'].dirty && formGroup.controls['email'].errors">Valor incorreto</p>
-      <ion-radio-group>
-          <ion-list radio-group >
-              <ion-list-header>
-                Tipo de cliente
-              </ion-list-header>
-              <ion-item>
-                <ion-label>Pessoa física</ion-label>
-                <ion-radio formControlName="tipo" checked value="1"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>Pessoa Jurídica</ion-label>
-                <ion-radio formControlName="tipo" value="2"></ion-radio>
-              </ion-item>
-          </ion-list>
-      </ion-radio-group>
+  
+
+        <ion-list>
+          <ion-radio-group  formControlName="tipo">
+            <ion-list-header>
+              <ion-label>Tipo de cliente</ion-label>
+            </ion-list-header>
+
+            <ion-item>
+              <ion-label>Pessoa física</ion-label>
+              <ion-radio slot="start"  value="1" checked></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Pessoa Jurídica</ion-label>
+              <ion-radio slot="start" value="2"></ion-radio>
+            </ion-item>
+
+
+          </ion-radio-group>
+        </ion-list>
+
+
       <ion-item>
           <ion-label>CPF ou CNPJ</ion-label>
-          <ion-input type="text" formControlName="cpfOuCpnj"></ion-input>
+          <ion-input type="text" formControlName="cpfOuCnpj"></ion-input>
       </ion-item>
-      <p class="danger" *ngIf="formGroup.controls['cpfOuCpnj'].dirty && formGroup.controls['cpfOuCpnj'].errors">Valor incorreto</p>
+      <p class="danger" *ngIf="formGroup.controls['cpfOuCnpj'].dirty && formGroup.controls['cpfOuCpnj'].errors">Valor incorreto</p>
       <ion-item>
           <ion-label>Senha</ion-label>
           <ion-input type="password" formControlName="senha"></ion-input>
@@ -88,7 +96,7 @@
       </ion-item>
       <ion-item>
           <ion-label>Cidade:</ion-label>
-          <ion-select formControlName="CidadeId">
+          <ion-select formControlName="cidadeId">
             <ion-select-option *ngFor="let cidade of cidades;" [value]="cidade.id">{{cidade.nome}}</ion-select-option>
           </ion-select> 
         </ion-item>

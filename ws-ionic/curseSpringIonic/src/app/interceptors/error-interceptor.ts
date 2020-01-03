@@ -5,6 +5,7 @@ import { Observable, throwError  } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { StorageService } from '../services/storage.service';
 import { AlertController } from '@ionic/angular';
+import { FieldMessage } from '../models/fieldmessasge';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -17,7 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
        catchError((error) => {
 
-        let errorApi = error.error;
+        let errorApi = JSON.parse(error.error);
 
         if (errorApi) {
           switch(error.status) {
@@ -28,7 +29,9 @@ export class ErrorInterceptor implements HttpInterceptor {
             case 401:
               this.handle401();
               break;
-            
+            case 422:
+              this.handle422(errorApi);
+              break;
             default:
               this.handleDefaultError(errorApi);
               break;
@@ -69,6 +72,31 @@ export class ErrorInterceptor implements HttpInterceptor {
     });
 
     await alert.present();
+  }
+
+
+
+  async handle422(errorObj) {
+
+    const alert = await this.alertCtrl.create({
+      header: 'Error ',
+      subHeader: `Status: 422 Erro: Validação`,
+      message: this.listError(errorObj.errors),
+      buttons: ['Ok']
+    });
+
+    await alert.present();
+  }
+
+ private listError(messages : FieldMessage[]) : string {
+
+    let s : string = '';
+
+    for (var i = 0; i < messages.length; i++) 
+      s = s + `<p><strong> ${messages[i].filedName}</strong>: ${messages[i].message}</p>`;
+    
+    return s;
+
   }
 
 }

@@ -4,6 +4,8 @@ import { CidadeService } from '../services/domain/cidade.service';
 import { EstadoService } from '../services/domain/estado.service';
 import { EstadoDTO } from '../models/estado.dto';
 import { CidadeDTO } from '../models/cidade.dto';
+import { ClienteService } from '../services/domain/cliente.service';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signup',
@@ -18,7 +20,10 @@ export class SignupPage implements OnInit {
 
   constructor(public formBuilder: FormBuilder, 
     public cidadeService: CidadeService,
-    public estadoService: EstadoService) {
+    public estadoService: EstadoService,
+    public clienteService: ClienteService,
+    public alertctlr: AlertController,
+    public navCtrl: NavController) {
     this.formGroup = this.formBuilder.group({
       nome: [
         'Joaquim',[
@@ -38,7 +43,7 @@ export class SignupPage implements OnInit {
            Validators.required
          ]
        ],
-       cpfOuCpnj: [
+       cpfOuCnpj: [
          '22248638027', [
            Validators.required, 
            Validators.minLength(11), 
@@ -90,7 +95,7 @@ export class SignupPage implements OnInit {
           Validators.required
         ]
       ],
-      CidadeId: [
+      cidadeId: [
         null, [
           Validators.required
         ]
@@ -101,9 +106,33 @@ export class SignupPage implements OnInit {
   ngOnInit() {
   }
 
+  async showInsertOk() {
+    const alert = await this.alertctlr.create({
+      header: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso!',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.navigateBack('/home');
+          }
+        }
+      ],
+     
+    });
+    await alert.present();
+  }
 
   signupUser() {
-    console.log('Enviou o formulário');
+    //console.log(this.formGroup.value);
+
+    this.clienteService.insert(this.formGroup.value).subscribe(
+      response => {
+        this.showInsertOk();
+      },
+      erorr => {}
+    );
+
   }
 
   updateCidades() {
@@ -111,7 +140,7 @@ export class SignupPage implements OnInit {
     this.cidadeService.findAll(estadoId)
     .subscribe(response => {
       this.cidades = response;
-      this.formGroup.controls.CidadeId.setValue(0);
+      this.formGroup.controls.cidadeId.setValue(0);
     },
     error => {});
   }
@@ -121,13 +150,13 @@ export class SignupPage implements OnInit {
     .subscribe(
       response => {
         this.estados = response;
-        console.log(this.estados);
         this.formGroup.controls.estadoId.setValue(this.estados[0].id);
         this.updateCidades();
       },
       error => { }
     );
   }
+
 
  
 }
