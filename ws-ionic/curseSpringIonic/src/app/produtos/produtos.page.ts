@@ -3,6 +3,7 @@ import { ProdutoDTO } from '../models/produto.dto';
 import { ProdutoService } from '../services/domain/produto.service';
 import { NavParams } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
+import { API_CONFIG } from '../config/api.config';
 
 @Component({
   selector: 'app-produtos',
@@ -19,6 +20,23 @@ export class ProdutosPage implements OnInit {
   ngOnInit() {
   }
 
+  loadImageUrls() {
+
+    for (let i = 0; i < this.itens.length; i++) {
+      let item = this.itens[i];
+      this.produtoService. getSmallImageFromBucket(item.id).subscribe(
+        response => {
+          item.imageUrl = `${API_CONFIG.bucket}/prod${item.id}-small.jpg`;
+        },
+        error => {
+          
+        }
+      );
+    }
+
+  }
+
+
   ionViewDidEnter() {
 
     let categoria_id : string;
@@ -33,8 +51,8 @@ export class ProdutosPage implements OnInit {
 
     this.produtoService.findByCategoria(categoria_id).subscribe(
       response => {
-        console.log(response);
         this.itens = response['content'];
+        this.loadImageUrls();
       },
       error => {
         
@@ -43,5 +61,7 @@ export class ProdutosPage implements OnInit {
 
  
   }
+
+
 
 }
