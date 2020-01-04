@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../services/domain/categoria.service';
 import { CategoriaDTO } from '../models/categoria.dto';
 import { API_CONFIG } from '../config/api.config';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categorias',
@@ -13,7 +14,8 @@ export class CategoriasPage implements OnInit {
   itens: CategoriaDTO[];
   bucketUrl: String;
 
-  constructor(public service : CategoriaService) { 
+  constructor(public service : CategoriaService,
+    public navCtrl: NavController) { 
     this.bucketUrl = `${API_CONFIG.bucket}`;
   }
 
@@ -31,6 +33,10 @@ export class CategoriasPage implements OnInit {
     },
     (error) => {});
 
+  }
+
+  showProdutos() {
+    this.navCtrl.navigateForward('/produtos');
   }
 
 }
