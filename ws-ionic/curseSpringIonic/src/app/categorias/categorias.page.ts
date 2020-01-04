@@ -35,8 +35,11 @@ export class CategoriasPage implements OnInit {
 
   }
 
-  showProdutos() {
-    this.navCtrl.navigateForward('/produtos');
+  showProdutos(categoria_id: string) {
+    this.navCtrl.navigateForward('/produtos', {
+      queryParams: {
+        categoria_id: categoria_id
+      }
+    });
   }
-
 }
