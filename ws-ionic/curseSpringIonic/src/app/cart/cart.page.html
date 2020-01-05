@@ -21,10 +21,31 @@
         <p>{{item.produto.preco | currency}}</p>
 
       </ion-label>
-      <ion-label>Quantidade: </ion-label>
-      <ion-note slot="end">{{item.quantidade}}</ion-note>
-
+      
+      <ion-button type="button" fill="outline" (click)="increaseQuantity(item.produto)"><ion-icon name="add" ></ion-icon></ion-button>
+      
+      <ion-note slot="end">
+        {{item.quantidade}}
+      </ion-note>
+      <ion-button slot="end" type="button" fill="outline" (click)="decreaseQuantity(item.produto)"><ion-icon name="remove" ></ion-icon></ion-button>
+      <ion-button slot="end" fill="outline" type="button" (click)="removeItem(item.produto)"><ion-icon name="trash"></ion-icon></ion-button>
+    </ion-item>
+    <ion-item *ngIf="total() > 0">
+      <ion-label>
+        <h1>Total</h1>
+      </ion-label>
+      <ion-note slot="end">
+        {{ total() | currency }}
+      </ion-note>
+    </ion-item>
+    <ion-item *ngIf="total() <= 0">
+      <ion-label>
+        <h1 class="ion-text-center">Seu carrinho está vazio</h1>
+      </ion-label>
     </ion-item>
   </ion-list>
-  
+  <ion-button fill="solid" color="success" expand="block" (click)="goOn()">
+    <ion-icon name="arrow-back"></ion-icon>
+    Continuar Comprando
+  </ion-button>
 </ion-content>
