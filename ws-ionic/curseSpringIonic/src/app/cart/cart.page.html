@@ -29,6 +29,7 @@
       </ion-note>
       <ion-button slot="end" type="button" fill="outline" (click)="decreaseQuantity(item.produto)"><ion-icon name="remove" ></ion-icon></ion-button>
       <ion-button slot="end" fill="outline" type="button" (click)="removeItem(item.produto)"><ion-icon name="trash"></ion-icon></ion-button>
+
     </ion-item>
     <ion-item *ngIf="total() > 0">
       <ion-label>
@@ -47,5 +48,8 @@
   <ion-button fill="solid" color="success" expand="block" (click)="goOn()">
     <ion-icon name="arrow-back"></ion-icon>
     Continuar Comprando
+  </ion-button>
+  <ion-button fill="solid" color="primary" expand="block" (click)="checkout()">
+    Finalizar pedido
   </ion-button>
 </ion-content>
