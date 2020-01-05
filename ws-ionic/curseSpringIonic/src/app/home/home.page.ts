@@ -27,7 +27,7 @@ export class HomePage {
     subscribe(
     result => {
       this.auth.successfulLogin(result.headers.get('Authorization'));
-      this.navCtrl.navigateRoot('/categorias');
+      this.navCtrl.navigateForward('/categorias');
     },
     error => {
       //console.log(error);
@@ -46,7 +46,7 @@ export class HomePage {
     subscribe(
     result => {
       this.auth.successfulLogin(result.headers.get('Authorization'));
-      this.navCtrl.navigateRoot('/categorias');
+      this.navCtrl.navigateForward('/categorias');
     },
     error => {
       //console.log(error);
