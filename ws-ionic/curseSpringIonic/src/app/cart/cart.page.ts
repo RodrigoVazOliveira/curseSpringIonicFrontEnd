@@ -3,7 +3,6 @@ import { CartService } from './../services/domain/CartService';
 import { CartItem } from './../models/cart-item';
 import { Component, OnInit } from '@angular/core';
 import { API_CONFIG } from '../config/api.config';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { NavController } from '@ionic/angular';
 
 @Component({
