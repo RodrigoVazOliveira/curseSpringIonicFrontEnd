@@ -40,7 +40,7 @@ export class AppComponent {
       function: () => {
         
         this.authService.logout();
-        this.navCtrl.navigateRoot('/home');
+        this.navCtrl.navigateForward('/home');
 
       }
     }
