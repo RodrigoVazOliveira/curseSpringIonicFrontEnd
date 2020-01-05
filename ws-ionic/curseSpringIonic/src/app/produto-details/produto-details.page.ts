@@ -1,8 +1,11 @@
+import { CartService } from './../services/domain/CartService';
+import { ProdutoDTO } from './../models/produto.dto';
 import { ActivatedRoute } from '@angular/router';
 import { ProdutoService } from './../services/domain/produto.service';
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDTO } from '../models/produto.dto';
 import { API_CONFIG } from '../config/api.config';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-produto-details',
@@ -13,8 +16,10 @@ export class ProdutoDetailsPage implements OnInit {
 
   item: ProdutoDTO;
 
-  constructor(private produtoService: ProdutoService,
-    private activatedRoute: ActivatedRoute) { }
+  constructor(public produtoService: ProdutoService,
+    public activatedRoute: ActivatedRoute,
+    public navCtrl: NavController,
+    public cartService: CartService) { }
 
   ngOnInit() {
   }
@@ -27,12 +32,12 @@ export class ProdutoDetailsPage implements OnInit {
         
         this.produtoService.findById(response['id']).subscribe(
           response => {
+            console.log(response);
             this.item = response;
             this.loadImageItem();
           },
           error => {}
         );
-        console.log(response);
       },
       error => {}
 
@@ -52,4 +57,11 @@ export class ProdutoDetailsPage implements OnInit {
 
   }
 
+
+  addToCart(produto: ProdutoDTO) {
+
+    this.cartService.addProduto(produto);
+    this.navCtrl.navigateForward('/cart');
+    
+  }
 }
