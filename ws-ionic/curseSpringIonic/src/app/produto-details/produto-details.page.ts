@@ -1,5 +1,8 @@
+import { ActivatedRoute } from '@angular/router';
+import { ProdutoService } from './../services/domain/produto.service';
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDTO } from '../models/produto.dto';
+import { API_CONFIG } from '../config/api.config';
 
 @Component({
   selector: 'app-produto-details',
@@ -8,19 +11,45 @@ import { ProdutoDTO } from '../models/produto.dto';
 })
 export class ProdutoDetailsPage implements OnInit {
 
-  item: ProdutoDTO[];
+  item: ProdutoDTO;
 
-  constructor() { }
+  constructor(private produtoService: ProdutoService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
   }
 
   ionViewDidEnter(){
-    this.item = {
-      id: "1",
-      nome: "Mouse",
-      preco: 80.59
-    }
+    
+    this.activatedRoute.queryParams.subscribe(
+
+      response => {
+        
+        this.produtoService.findById(response['id']).subscribe(
+          response => {
+            this.item = response;
+            this.loadImageItem();
+          },
+          error => {}
+        );
+        console.log(response);
+      },
+      error => {}
+
+    );
+
+  }
+
+
+  loadImageItem() {
+
+    this.produtoService.getImageFromBucket(this.item.id).subscribe(
+      response => {
+        this.item.imageUrl = `${API_CONFIG.bucket}/prod${this.item.id}.jpg`
+      },
+      error => {}
+    );
+
   }
 
 }

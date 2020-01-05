@@ -17,4 +17,13 @@ export class ProdutoService {
         let url = `${API_CONFIG.bucket}/prod${id}-small.jpg`;
         return this.http.get(url, {responseType: `blob`});
     }
+
+    findById(id: string) {
+        return this.http.get(`${API_CONFIG.baseUrl}/produtos/${id}`);
+    }
+
+    getImageFromBucket(id: string) {
+        let url = `${API_CONFIG.bucket}/prod${id}.jpg`;
+        return this.http.get(url, {responseType: `blob`});
+    }
 }

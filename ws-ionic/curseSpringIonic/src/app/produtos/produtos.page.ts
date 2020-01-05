@@ -49,8 +49,6 @@ export class ProdutosPage implements OnInit {
       }
     );
 
-    console.log(categoria_id);
-
     this.produtoService.findByCategoria(categoria_id).subscribe(
       response => {
         this.itens = response['content'];
@@ -62,10 +60,10 @@ export class ProdutosPage implements OnInit {
  
   }
 
-  showDetail() {
+  showDetail(id: string) {
     this.navCtrl.navigateForward('/produto-details', {
       queryParams: {
-        id: "1"
+        id: id
       }
     });
   }
