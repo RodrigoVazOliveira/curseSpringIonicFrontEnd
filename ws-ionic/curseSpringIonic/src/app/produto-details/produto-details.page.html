@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Detalhes do produto
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <img [src]="item?.imageUrl || 'assets/imgs/prod.jpg'" />
+
+    <ion-card-header>
+
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{ item?.nome }}</  ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+        <p> {{ item?.preco | currency }} </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expnd="full" size="default" fill="outline" color="danger">Adicionar ao carrinho</ion-button>
+</ion-content>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDTO } from '../models/produto.dto';
 import { ProdutoService } from '../services/domain/produto.service';
-import { NavParams } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { API_CONFIG } from '../config/api.config';
 
@@ -15,7 +15,9 @@ export class ProdutosPage implements OnInit {
   itens: ProdutoDTO[];
 
 
-  constructor(public produtoService: ProdutoService, private activedRoute: ActivatedRoute) { }
+  constructor(private produtoService: ProdutoService, 
+            private activedRoute: ActivatedRoute,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -54,12 +56,18 @@ export class ProdutosPage implements OnInit {
         this.itens = response['content'];
         this.loadImageUrls();
       },
-      error => {
-        
-      }
+      error => { }
     );
 
  
+  }
+
+  showDetail() {
+    this.navCtrl.navigateForward('/produto-details', {
+      queryParams: {
+        id: "1"
+      }
+    });
   }
 
 
