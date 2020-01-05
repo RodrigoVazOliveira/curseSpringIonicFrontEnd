@@ -37,6 +37,10 @@ const routes: Routes = [
   {
     path: 'pick-adress',
     loadChildren: () => import('./pick-adress/pick-adress.module').then( m => m.PickAdressPageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
   }
 
 ];

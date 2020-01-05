@@ -32,7 +32,6 @@ export class ProdutoDetailsPage implements OnInit {
         
         this.produtoService.findById(response['id']).subscribe(
           response => {
-            console.log(response);
             this.item = response;
             this.loadImageItem();
           },

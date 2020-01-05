@@ -61,6 +61,10 @@ export class PickAdressPage implements OnInit {
 
   nextPage(item: EnderecoDTO) {
     this.pedido.enderecoDeEntrega = {id: item.id};
-    console.log(this.pedido);
+    this.navCtrl.navigateForward('/payment', {
+      queryParams: {
+        pedido: this.pedido
+      }
+    });
   }
 }
