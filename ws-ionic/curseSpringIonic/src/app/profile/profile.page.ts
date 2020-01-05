@@ -28,16 +28,16 @@ export class ProfilePage implements OnInit {
       if (localUser && localUser.email) {
         this.clienteService.findByEmail(localUser.email)
         .subscribe( response => {
-          this.cliente = response;
+          this.cliente = response as ClienteDTO;
           this.getImageIfExists();
         }, 
         error => {
           if (error.status == 403) 
-            this.navCtrl.navigateRoot('/home');
+            this.navCtrl.navigateBack('/home');
         });
       }
       else
-      this.navCtrl.navigateRoot('/home');
+      this.navCtrl.navigateBack('/home');
 
   }
 
