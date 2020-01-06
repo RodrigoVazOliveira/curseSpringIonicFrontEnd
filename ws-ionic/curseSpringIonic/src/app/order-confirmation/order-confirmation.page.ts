@@ -20,6 +20,7 @@ export class OrderConfirmationPage implements OnInit {
   cartItems: CartItem[];
   cliente: ClienteDTO;
   endereco: EnderecoDTO;
+  codigoPedido: string;
 
   constructor(public activatedRoute: ActivatedRoute,
               public cartService: CartService,
@@ -38,7 +39,7 @@ export class OrderConfirmationPage implements OnInit {
   checkout() {
     this.pedidoService.insert(this.pedido).subscribe(
       response => {
-        console.log(response.headers.get('location'));
+        this.codigoPedido = this.extractId(response.headers.get('Location'));
         this.cartService.createOrClearCart();
       }, error => {
         if (error.status == 403) {
@@ -46,6 +47,10 @@ export class OrderConfirmationPage implements OnInit {
         }
       }
     );
+  }
+
+  ngOnInit() {
+
   }
 
   ionViewDidEnter(){
@@ -73,6 +78,11 @@ export class OrderConfirmationPage implements OnInit {
 
   total() {
     return this.cartService.total();
+  }
+
+  private extractId(location: string): string {
+    let position = location.lastIndexOf('/');
+    return location.substring(position + 1, location.length);
   }
 
 }
