@@ -41,7 +41,10 @@ export class ProdutosPage implements OnInit {
 
 
   ionViewDidEnter() {
+    this.loadData();    
+  }
 
+  loadData() {
     let categoria_id : string;
 
     this.presentLoading();
@@ -62,8 +65,6 @@ export class ProdutosPage implements OnInit {
         this.loading.dismiss();
       }
     );
-
-    
   }
 
   showDetail(id: string) {
@@ -83,5 +84,12 @@ export class ProdutosPage implements OnInit {
 
   }
 
+  
+  doRefresh(event) {
+    this.loadData();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
 
 }

@@ -1,9 +1,8 @@
-import { CartService } from './../services/domain/CartService';
 import { ProdutoDTO } from './../models/produto.dto';
+import { CartService } from './../services/domain/CartService';
 import { ActivatedRoute } from '@angular/router';
 import { ProdutoService } from './../services/domain/produto.service';
 import { Component, OnInit } from '@angular/core';
-import { ProdutoDTO } from '../models/produto.dto';
 import { API_CONFIG } from '../config/api.config';
 import { NavController } from '@ionic/angular';
 
@@ -32,7 +31,7 @@ export class ProdutoDetailsPage implements OnInit {
         
         this.produtoService.findById(response['id']).subscribe(
           response => {
-            this.item = response;
+            this.item = response as ProdutoDTO;
             this.loadImageItem();
           },
           error => {}

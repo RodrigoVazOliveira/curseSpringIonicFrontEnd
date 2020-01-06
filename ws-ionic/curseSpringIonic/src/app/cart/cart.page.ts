@@ -1,3 +1,4 @@
+import { ProdutoDTO } from './../models/produto.dto';
 import { ProdutoService } from './../services/domain/produto.service';
 import { CartService } from './../services/domain/CartService';
 import { CartItem } from './../models/cart-item';

@@ -1,3 +1,4 @@
+import { PedidoDTO } from './../models/pedido.dto';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -13,7 +14,7 @@ export class PaymentPage implements OnInit {
   pedido: PedidoDTO;
   parcelas: number[] = [1,2,3,4,5,6,7,8,9,10];
 
-  formGroup = FormGroup;
+  formGroup : FormGroup;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -28,6 +29,7 @@ export class PaymentPage implements OnInit {
       }
     );
 
+
     this.formGroup = this.formBuilder.group({
       numeroDeParcelas: [1, Validators.required],
       "@type": ["pagamentoComCartao", Validators.required]
@@ -35,6 +37,10 @@ export class PaymentPage implements OnInit {
 
   }
 
+  ngOnInit() {
+
+  }
+  
   ionViewDidEnter(){
    
   }

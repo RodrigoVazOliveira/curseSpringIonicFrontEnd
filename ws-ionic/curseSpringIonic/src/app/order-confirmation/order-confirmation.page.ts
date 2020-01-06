@@ -68,9 +68,9 @@ export class OrderConfirmationPage implements OnInit {
 
   }
 
-  private findAddress(id: string, list: EnderecoDTO[]): EnderecoDTO {
+  private findAddress(id: any, list: EnderecoDTO[]): EnderecoDTO {
 
-    let position = list.findIndex(x => x.id = id);
+    let position = list.findIndex(x => x.id == id);
 
     return list[position];
 
