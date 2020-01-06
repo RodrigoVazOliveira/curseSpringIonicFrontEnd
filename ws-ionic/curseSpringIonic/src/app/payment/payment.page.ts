@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-payment',
@@ -16,7 +17,8 @@ export class PaymentPage implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    public navCtrl: NavController
   ) { 
 
     activatedRoute.queryParams.subscribe(
@@ -39,7 +41,11 @@ export class PaymentPage implements OnInit {
 
   nextpage() {
     this.pedido.pagamento = this.formGroup.value;
-    console.log(this.pedido);
+    this.navCtrl.navigateRoot('/order-confirmation', {
+      queryParams: {
+        pedido: this.pedido
+      }
+    });
   }
 
 }
