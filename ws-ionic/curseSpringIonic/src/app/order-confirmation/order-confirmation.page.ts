@@ -1,3 +1,4 @@
+import { PedidoService } from './../services/domain/pedido.service';
 import { EnderecoDTO } from './../models/endereco.dto';
 import { ClienteDTO } from './../models/cliente.dto';
 import { CartService } from './../services/domain/CartService';
@@ -23,7 +24,8 @@ export class OrderConfirmationPage implements OnInit {
   constructor(public activatedRoute: ActivatedRoute,
               public cartService: CartService,
               public clienteService: ClienteService,
-              public navCtrl: NavController) {
+              public navCtrl: NavController,
+              public pedidoService: PedidoService) {
 
     this.activatedRoute.queryParams.subscribe(
       response => {
@@ -34,7 +36,16 @@ export class OrderConfirmationPage implements OnInit {
    }
 
   checkout() {
-    console.log(this.pedido);
+    this.pedidoService.insert(this.pedido).subscribe(
+      response => {
+        console.log(response.headers.get('location'));
+        this.cartService.createOrClearCart();
+      }, error => {
+        if (error.status == 403) {
+          this.navCtrl.navigateRoot('/home');
+        }
+      }
+    );
   }
 
   ionViewDidEnter(){

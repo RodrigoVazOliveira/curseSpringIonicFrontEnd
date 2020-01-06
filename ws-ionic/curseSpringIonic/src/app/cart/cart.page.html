@@ -49,7 +49,7 @@
     <ion-icon name="arrow-back"></ion-icon>
     Continuar Comprando
   </ion-button>
-  <ion-button fill="solid" color="primary" expand="block" (click)="checkout()">
+  <ion-button fill="solid" *ngIf="total() > 0" color="primary" expand="block" (click)="checkout()">
     Finalizar pedido
   </ion-button>
 </ion-content>
