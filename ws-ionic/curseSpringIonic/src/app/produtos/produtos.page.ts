@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProdutoDTO } from '../models/produto.dto';
 import { ProdutoService } from '../services/domain/produto.service';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, IonInfiniteScroll } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { API_CONFIG } from '../config/api.config';
 
@@ -11,9 +11,12 @@ import { API_CONFIG } from '../config/api.config';
   styleUrls: ['./produtos.page.scss'],
 })
 export class ProdutosPage implements OnInit {
+  
+  @ViewChild(IonInfiniteScroll, {static: false}) infiniteScroll: IonInfiniteScroll;
 
-  itens: ProdutoDTO[];
+  itens: ProdutoDTO[] = [];
   loading = null;
+  page: number = 0;
 
   constructor(private produtoService: ProdutoService, 
               private activedRoute: ActivatedRoute,
@@ -23,9 +26,9 @@ export class ProdutosPage implements OnInit {
   ngOnInit() {
   }
 
-  loadImageUrls() {
+  loadImageUrls(start : number, end : number) {
 
-    for (let i = 0; i < this.itens.length; i++) {
+    for (let i = start; i < end; i++) {
       let item = this.itens[i];
       this.produtoService. getSmallImageFromBucket(item.id).subscribe(
         response => {
@@ -41,25 +44,25 @@ export class ProdutosPage implements OnInit {
 
 
   ionViewDidEnter() {
-    this.loadData();    
+    this.loadDataView();    
   }
 
-  loadData() {
+  loadDataView() {
     let categoria_id : string;
-
     this.presentLoading();
-
     this.activedRoute.queryParams.subscribe(
       response => {
         categoria_id = response['categoria_id'];
       }
     );
-
-    this.produtoService.findByCategoria(categoria_id).subscribe(
+    this.produtoService.findByCategoria(categoria_id, this.page, 10).subscribe(
       response => {
-        this.itens = response['content'];
-        this.loadImageUrls();
+        let start = this.itens.length;
+        this.itens = this.itens.concat(response['content']);
+        let end = this.itens.length - 1;
+        this.loadImageUrls(start, end);
         this.loading.dismiss();
+
       },
       error => { 
         this.loading.dismiss();
@@ -86,10 +89,26 @@ export class ProdutosPage implements OnInit {
 
   
   doRefresh(event) {
-    this.loadData();
+    this.page = 0;
+    this.itens = [];
+    this.loadDataView();
     setTimeout(() => {
       event.target.complete();
     }, 1000);
   }
 
+  loadData(event) {
+    this.page++;
+    this.loadDataView();
+    setTimeout(() => {
+      event.target.complete();
+      // if (data.length == 1000) {
+      //   event.target.disabled = true;
+      // }
+    }, 1000);
+  }
+
+  toggleInfiniteScroll() {
+    this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  }
 }
