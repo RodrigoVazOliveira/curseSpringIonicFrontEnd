@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProdutoDTO } from '../models/produto.dto';
 import { ProdutoService } from '../services/domain/produto.service';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { API_CONFIG } from '../config/api.config';
 
@@ -13,11 +13,12 @@ import { API_CONFIG } from '../config/api.config';
 export class ProdutosPage implements OnInit {
 
   itens: ProdutoDTO[];
-
+  loading = null;
 
   constructor(private produtoService: ProdutoService, 
-            private activedRoute: ActivatedRoute,
-    private navCtrl: NavController) { }
+              private activedRoute: ActivatedRoute,
+              private navCtrl: NavController,
+              private LoadingCtrl: LoadingController) { }
 
   ngOnInit() {
   }
@@ -43,6 +44,8 @@ export class ProdutosPage implements OnInit {
 
     let categoria_id : string;
 
+    this.presentLoading();
+
     this.activedRoute.queryParams.subscribe(
       response => {
         categoria_id = response['categoria_id'];
@@ -53,11 +56,14 @@ export class ProdutosPage implements OnInit {
       response => {
         this.itens = response['content'];
         this.loadImageUrls();
+        this.loading.dismiss();
       },
-      error => { }
+      error => { 
+        this.loading.dismiss();
+      }
     );
 
- 
+    
   }
 
   showDetail(id: string) {
@@ -68,6 +74,14 @@ export class ProdutosPage implements OnInit {
     });
   }
 
+  async presentLoading() {
+    this.loading = await this.LoadingCtrl.create({
+      message: 'Aguarde....'
+    });
+    await this.loading.present();
+    //const { role, data } = await loading.onDidDismiss();
+
+  }
 
 
 }
