@@ -1,5 +1,7 @@
 {
   "name": "curseSpringIonic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
