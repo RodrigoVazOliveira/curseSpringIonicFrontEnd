@@ -22,11 +22,15 @@
         <ion-item *ngIf="picture">
           <img [src]="picture" />
         </ion-item>
-        <ion-item>
-          <ion-button expand="block" (click)="getPicture()" [disabled]="cameraOn">
-            Camera
-          </ion-button>
-        </ion-item>
+        <ion-button expand="block" color="dark" fill="solid" size="large" (click)="getPicture()" [disabled]="cameraOn">
+          Camera
+        </ion-button>
+        <ion-button *ngIf="picture" expand="block" color="dark" fill="outline" size="large" (click)="sendPicture()" [disabled]="cameraOn">
+          Enviar imagem
+        </ion-button>
+        <ion-button *ngIf="picture" expand="block" color="dark" fill="outline" size="large" (click)="cancelPicture()" [disabled]="cameraOn">
+          Descartar imagem
+        </ion-button>
       </ion-card-content>
     </ion-card>
 

@@ -27,24 +27,28 @@ export class ProfilePage implements OnInit {
 
   ionViewWillEnter() {
 
-      let localUser = this.storage.getLocalUser();
+    this.loadDataView();
 
-      if (localUser && localUser.email) {
-        this.clienteService.findByEmail(localUser.email)
-        .subscribe( response => {
-          this.cliente = response as ClienteDTO;
-          this.getImageIfExists();
-        }, 
-        error => {
-          if (error.status == 403) { 
-            this.navCtrl.navigateBack('/home');
-          }
-        });
-      }
-      else {
-      this.navCtrl.navigateBack('/home');
-      }
+  }
 
+  loadDataView() {
+    let localUser = this.storage.getLocalUser();
+
+    if (localUser && localUser.email) {
+      this.clienteService.findByEmail(localUser.email)
+      .subscribe( response => {
+        this.cliente = response as ClienteDTO;
+        this.getImageIfExists();
+      }, 
+      error => {
+        if (error.status == 403) { 
+          this.navCtrl.navigateBack('/home');
+        }
+      });
+    }
+    else {
+    this.navCtrl.navigateBack('/home');
+    }
   }
 
   getImageIfExists() {
@@ -78,6 +82,21 @@ export class ProfilePage implements OnInit {
     }, (err) => {
 
     });
+  }
+
+  sendPicture() {
+    this.clienteService.uploadPicture(this.picture).subscribe(
+      response => {
+        this.picture = null;
+        this.loadDataView();
+      },error => {
+
+      }
+    );
+  }
+
+  cancelPicture() {
+    this.picture = null;
   }
  
 }

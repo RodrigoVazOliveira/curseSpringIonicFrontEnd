@@ -1,3 +1,4 @@
+import { ImageUtilService } from './services/image-util.service';
 import { CartService } from './services/domain/CartService';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,6 +37,7 @@ import { ProdutoService } from './services/domain/produto.service';
     ClienteService,
     ProdutoService,
     CartService,
+    ImageUtilService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
