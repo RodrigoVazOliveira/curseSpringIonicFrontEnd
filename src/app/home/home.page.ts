@@ -25,8 +25,9 @@ export class HomePage {
   login() {
     this.auth.authenticate(this.credenciais).
     subscribe(
-    result => {
-      this.auth.successfulLogin(result.headers.get('Authorization'));
+    response => {
+      console.log(response);
+      this.auth.successfulLogin(response.headers.get('Authorization'));
       this.navCtrl.navigateForward('/categorias');
     },
     error => {
@@ -44,8 +45,8 @@ export class HomePage {
   ionViewDidEnter() {
     this.auth.refreshToken().
     subscribe(
-    result => {
-      this.auth.successfulLogin(result.headers.get('Authorization'));
+      response => {
+      this.auth.successfulLogin(response.headers.get('Authorization'));
       this.navCtrl.navigateForward('/categorias');
     },
     error => {
